@@ -1,0 +1,19 @@
+{
+  "complaint_id": "CMP-2025-00089",
+  "customer_id": "100034",
+  "to": {
+    "name": "Acme",
+    "email": "anita.rao@acmeretail.example",
+    "phone": "+91-80-5555-1100"
+  },
+  "body": "Dear Acme,\n\nWe sincerely apologize for the inconvenience caused due to the delay in your delivery associated with complaint ID CMP-2025-00089. We understand how important timely deliveries are to your business, and regret falling short of expectations.\n\nOur team has been actively working to address this, and we\u2019ve confirmed that the revised delivery date with BlueDart is now set for 2025-11-28. Additionally, as a gesture of goodwill, we\u2019ve applied a credit of 2,299.5 INR to your account to acknowledge the disruption and to thank you for your patience.\n\nPlease rest assured, we are taking steps to ensure such issues are minimized in the future and remain committed to serving your organization with excellence.\n\nWe truly value your continued trust in Acme Retail Pvt Ltd and appreciate your understanding.\n\nWarm regards,  \n[Your Name]  \nCustomer Experience Team  \nAcme Retail Pvt Ltd",
+  "dispatch_channel": "email",
+  "tone": "empathetic",
+  "compliance": {
+    "gdpr": true,
+    "brand": true
+  },
+  "validation_status": "pass",
+  "timestamp": "2026-02-19T09:17:14.050289",
+  "agent_id": "COM-01"
+}

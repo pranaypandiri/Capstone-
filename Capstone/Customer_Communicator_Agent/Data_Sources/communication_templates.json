@@ -1,0 +1,4 @@
+{
+  "delay_resolution": "Hello {{name}}, we apologise for the delay. New ETA: {{eta}}. A goodwill credit of {{amount}} {{currency}} has been approved.",
+  "signature": "Regards,\nCustomer Care"
+}

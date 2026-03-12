@@ -1,0 +1,8 @@
+[
+    {
+        "model": "gpt-4o",
+        "api_key": "your-api-key-here",
+        "base_url": "https://schoolofagenticaitraining.openai.azure.com/",
+        "api_type": "azure"
+    }
+]

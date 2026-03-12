@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "Customer Communicator Agent API",
+    "description": "Collection for testing Customer Communicator Agent REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/health",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Agent Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/v1/status",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "v1", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Message Generation",
+      "item": [
+        {
+          "name": "Generate Single Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_profile\": {\n    \"KNA1\": {\n      \"customer_id\": \"100034\",\n      \"name\": \"Acme\",\n      \"email\": \"anita.rao@acmeretail.example\",\n      \"phone\": \"+91-80-5555-1100\"\n    },\n    \"KNVV\": {\n      \"currency\": \"INR\"\n    }\n  },\n  \"resolution_plan\": {\n    \"complaint_id\": \"CMP-2025-00089\",\n    \"category\": \"Delivery Delay\",\n    \"description\": \"Order delayed in transit\",\n    \"actions\": [\n      {\n        \"action_type\": \"Expedite\",\n        \"carrier\": \"BlueDart\",\n        \"delivery_date\": \"2025-11-28\"\n      }\n    ]\n  },\n  \"credit_confirmation\": {\n    \"approval_status\": \"approved\",\n    \"goodwill_credit\": {\n      \"amount\": 2299.50,\n      \"currency\": \"INR\"\n    }\n  }\n}\n"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/v1/generate-message",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "v1", "generate-message"]
+            }
+          }
+        },
+        {
+          "name": "Batch Generate Messages",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"customer_profile\": {\n        \"KNA1\": {\n          \"customer_id\": \"100034\",\n          \"name\": \"Acme\",\n          \"email\": \"anita.rao@acmeretail.example\",\n          \"phone\": \"+91-80-5555-1100\"\n        },\n        \"KNVV\": {\n          \"currency\": \"INR\"\n        }\n      },\n      \"resolution_plan\": {\n        \"complaint_id\": \"CMP-2025-00089\",\n        \"category\": \"Delivery Delay\",\n        \"description\": \"Order delayed in transit\",\n        \"actions\": [\n          {\n            \"action_type\": \"Expedite\",\n            \"carrier\": \"BlueDart\",\n            \"delivery_date\": \"2025-11-28\"\n          }\n        ]\n      },\n      \"credit_confirmation\": {\n        \"approval_status\": \"approved\",\n        \"goodwill_credit\": {\n          \"amount\": 2299.50,\n          \"currency\": \"INR\"\n        }\n      }\n    },\n    {\n      \"customer_profile\": {\n        \"KNA1\": {\n          \"customer_id\": \"100035\",\n          \"name\": \"Beta Corp\",\n          \"email\": \"contact@betacorp.example\",\n          \"phone\": \"+91-80-5555-1101\"\n        },\n        \"KNVV\": {\n          \"currency\": \"INR\"\n        }\n      },\n      \"resolution_plan\": {\n        \"complaint_id\": \"CMP-2025-00090\",\n        \"category\": \"Quality Issue\",\n        \"description\": \"Product quality concerns\",\n        \"actions\": [\n          {\n            \"action_type\": \"Replace\",\n            \"quantity\": 5\n          }\n        ]\n      },\n      \"credit_confirmation\": {\n        \"approval_status\": \"approved\",\n        \"goodwill_credit\": {\n          \"amount\": 1500.00,\n          \"currency\": \"INR\"\n        }\n      }\n    }\n  ]\n}\n"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/v1/batch-generate",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "v1", "batch-generate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Validation",
+      "item": [
+        {
+          "name": "Validate Message Compliance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Dear Acme,\\n\\nWe sincerely apologize for the delay in delivering your order with Complaint ID CMP-2025-00089. We understand how important timely delivery is for your organization, and we regret the inconvenience this may have caused.\\n\\nWe have been in touch with our carrier partner, BlueDart, and your shipment is now scheduled to reach you by 2025-11-28. To express our commitment to your satisfaction, we have issued a goodwill credit of 2,299.50 INR to your account.\\n\\nThank you for your patience and understanding.\",\n  \"context\": {\n    \"customer_id\": \"100034\",\n    \"complaint_id\": \"CMP-2025-00089\",\n    \"category\": \"Delivery Delay\"\n  }\n}\n"
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/v1/validate",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "5000",
+              "path": ["api", "v1", "validate"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

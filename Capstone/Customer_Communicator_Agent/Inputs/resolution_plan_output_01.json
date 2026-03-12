@@ -1,0 +1,30 @@
+{
+  "complaint_id": "CMP-2025-00089",
+  "customer_id": "100034",
+  "category": "Delivery Delay",
+  "actions": [
+    {
+      "type": "Expedite",
+      "details": {
+        "new_eta": "2025-11-28",
+        "carrier": "BlueDart"
+      }
+    },
+    {
+      "type": "GoodwillCredit",
+      "details": {
+        "percent": 5,
+        "apply_to": "item_total",
+        "estimated_amount": 2299.5
+      }
+    }
+  ],
+  "cost_estimate": {
+    "currency": "INR",
+    "amount": 2299.5
+  },
+  "policy_compliance": true,
+  "validation_status": "pass",
+  "timestamp": "2025-11-28T17:06:56",
+  "agent_id": "RPA-01"
+}

@@ -1,0 +1,62 @@
+Complaint_Classifier_Agent/
+    Inputs/
+        complaint_text_sample_01.txt
+        customer_profile_sample_01.json
+        interaction_history_sample_01.json
+    Data_Sources/
+        crm_extract_sample_01.json
+        email_chat_log_sample_01.txt
+        sap_field_descriptions.json
+        ticketing_system_log_sample_01.json
+    Outputs/
+        complaint_category_output_01.json
+        routing_metadata_output_01.json
+        severity_priority_output_01.json
+Evidence_Collector_Agent/
+    Inputs/
+        classification_output_01.json
+        customer_profile_sample_01.json
+    Data_Sources/
+        sap_billing_vbrk_vbrp.json
+        sap_delivery_likp_lips.json
+        sap_sales_order_vbak_vbap.json
+        warehouse_log_sample_01.json
+    Outputs/
+        evidence_packet_output_01.json
+Remedy_Planner_Agent/
+    Inputs/
+        classification_output_01.json
+        evidence_packet_output_01.json
+    Data_Sources/
+        policy_repository.json
+    Outputs/
+        resolution_plan_output_01.json
+Credit_Trigger_Agent/
+    Inputs/
+        customer_profile_sample_01.json
+        resolution_plan_output_01.json
+    Data_Sources/
+        sap_fi_bkpf_bseg.json
+    Outputs/
+        credit_confirmation_output_01.json
+Customer_Communicator_Agent/
+    Inputs/
+        credit_confirmation_output_01.json
+        customer_profile_sample_01.json
+        resolution_plan_output_01.json
+    Data_Sources/
+        communication_templates.json
+    Outputs/
+        resolution_message_output_01.json
+Audit_Logger_Agent/
+    Inputs/
+        classification_output_01.json
+        credit_confirmation_output_01.json
+        evidence_packet_output_01.json
+        resolution_message_output_01.json
+        resolution_plan_output_01.json
+    Data_Sources/
+        log_schema.json
+    Outputs/
+        audit_index_01.csv
+        audit_trail_01.json

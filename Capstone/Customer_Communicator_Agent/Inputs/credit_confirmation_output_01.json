@@ -1,0 +1,19 @@
+{
+  "complaint_id": "CMP-2025-00089",
+  "customer_id": "100034",
+  "approval": {
+    "status": "approved",
+    "amount": 2299.5,
+    "currency": "INR",
+    "credit_doc": "CR-2025-00221",
+    "conditions": [
+      "single_use",
+      "visible_in_next_statement"
+    ]
+  },
+  "audit": {
+    "timestamp": "2025-11-28T17:06:56",
+    "agent_id": "CTA-01"
+  },
+  "validation_status": "pass"
+}

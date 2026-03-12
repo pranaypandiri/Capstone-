@@ -1,0 +1,436 @@
+# 🎯 Customer Communicator Agent - Flask API Quick Visual Guide
+
+## Server Status
+
+```
+┌─────────────────────────────────────────────────────┐
+│                   ✅ SERVER RUNNING                 │
+├─────────────────────────────────────────────────────┤
+│  URL: http://127.0.0.1:5000                         │
+│  Port: 5000                                         │
+│  Status: Development Mode (Debug On)                │
+│  Endpoints: 5 Available                             │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 5 Available Endpoints
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    AVAILABLE ENDPOINTS                        │
+├──────┬─────────────────────────────┬────────────────────────┤
+│ Type │ Endpoint                    │ Purpose                │
+├──────┼─────────────────────────────┼────────────────────────┤
+│ GET  │ /health                     │ Health Check           │
+│ GET  │ /api/v1/status              │ Agent Status           │
+│ POST │ /api/v1/generate-message    │ Single Message ⭐     │
+│ POST │ /api/v1/batch-generate      │ Multiple Messages ⭐  │
+│ POST │ /api/v1/validate            │ Validation             │
+└──────┴─────────────────────────────┴────────────────────────┘
+```
+
+---
+
+## How to Test (3 Ways)
+
+### Method 1: Postman (Easiest) ⭐
+
+```
+┌─────────────────────────────────────┐
+│  1. Open Postman                    │
+├─────────────────────────────────────┤
+│  2. Click Import                    │
+│  3. Select Postman_Collection.json  │
+│  4. All endpoints pre-configured    │
+├─────────────────────────────────────┤
+│  5. Click any request               │
+│  6. Click Send                      │
+│  7. View response                   │
+├─────────────────────────────────────┤
+│  ✓ Response in Postman              │
+│  ✓ Logs in Terminal                 │
+└─────────────────────────────────────┘
+```
+
+### Method 2: cURL
+
+```bash
+# Health Check
+curl http://127.0.0.1:5000/health
+
+# Generate Message
+curl -X POST http://127.0.0.1:5000/api/v1/generate-message \
+  -H "Content-Type: application/json" \
+  -d '{...}'
+```
+
+### Method 3: Batch Script
+
+```
+Windows: test_api.bat
+├─ Interactive menu
+├─ Pre-configured tests
+└─ Easy selection
+```
+
+---
+
+## Request Flow
+
+```
+┌──────────┐
+│ Postman  │ ◄─── YOU
+│  or cURL │
+└────┬─────┘
+     │ HTTP POST/GET
+     │
+     ▼
+┌────────────────────────┐
+│   Flask API Server     │
+│  (http:127.0.0.1:5000) │ ◄─── Validates Request
+└────┬───────────────────┘
+     │
+     ▼
+┌──────────────────────────────────────┐
+│  Customer Communicator Agent         │
+├──────────────────────────────────────┤
+│  ┌─────────────────────────────────┐ │
+│  │ Message Generator Agent         │ │
+│  │  └─ LLM: Azure GPT-4o          │ │
+│  └─────────────────────────────────┘ │
+│  ┌─────────────────────────────────┐ │
+│  │ Compliance Validator Agent      │ │
+│  │  └─ LLM: Azure GPT-4o          │ │
+│  └─────────────────────────────────┘ │
+└────┬──────────────────────────────────┘
+     │
+     ▼
+┌──────────────────────────┐
+│  JSON Response Generated │
+└────┬─────────────────────┘
+     │
+     ├─ Return to Postman ──► [You See Response]
+     │
+     └─ Terminal Logs ──────► [You See Details]
+```
+
+---
+
+## Terminal Output Example
+
+```
+Terminal Window:
+
+======================================================================
+INCOMING API REQUEST
+======================================================================
+Timestamp: 2026-01-13T10:35:45.123456
+Customer ID: 100034
+Complaint ID: CMP-2025-00089
+======================================================================
+
+[API] Processing request through agent...
+
+  [Agent] Invoking Message Generator Agent...
+    → Sending request to Message Generator Agent...
+    ✓ Message generated by Agent
+
+  [Agent] Invoking Compliance Validator Agent...
+    → Sending request to Compliance Validator Agent...
+    ✓ Compliance validated by Agent
+
+[API] ✓ Message generation completed successfully
+======================================================================
+RESPONSE SENT TO CLIENT
+======================================================================
+{
+  "complaint_id": "CMP-2025-00089",
+  "customer_id": "100034",
+  "body": "Dear Acme,\n\nWe sincerely apologize for the delay...",
+  "dispatch_channel": "email",
+  "tone": "empathetic",
+  "compliance": {"gdpr": true, "brand": true},
+  "validation_status": "pass"
+}
+======================================================================
+HTTP/1.1 200 OK
+```
+
+---
+
+## Step-by-Step: Testing with Postman
+
+### Step 1️⃣: Import Collection
+```
+Postman Dashboard
+    ↓
+Click "Import" (top-left)
+    ↓
+Select "Postman_Collection.json"
+    ↓
+Click "Import"
+    ↓
+✅ All endpoints appear in left sidebar
+```
+
+### Step 2️⃣: Select Endpoint
+```
+Left Sidebar
+    ↓
+Expand "Customer Communicator Agent API"
+    ↓
+Click "Generate Single Message"
+    ↓
+Request opens in main panel
+```
+
+### Step 3️⃣: Review Request
+```
+Method: POST ✓
+URL: http://127.0.0.1:5000/api/v1/generate-message ✓
+Headers: Content-Type: application/json ✓
+Body: Pre-filled JSON ✓
+```
+
+### Step 4️⃣: Send Request
+```
+Click "Send" button
+    ↓
+Postman shows response (bottom panel)
+    ↓
+Terminal shows detailed logs
+    ↓
+✅ Both show message generation success
+```
+
+### Step 5️⃣: View Results
+```
+Postman: 
+  - Response JSON
+  - Status code (200)
+  - Response time
+  - Headers
+
+Terminal:
+  - Request details
+  - Agent processing
+  - Message generated
+  - Compliance validated
+  - Full response JSON
+```
+
+---
+
+## Sample Response
+
+### Request Sent:
+```
+Method: POST
+URL: /api/v1/generate-message
+Customer: Acme (ID: 100034)
+Complaint: CMP-2025-00089 (Delivery Delay)
+```
+
+### Postman Response:
+```json
+{
+  "status": "success",
+  "data": {
+    "complaint_id": "CMP-2025-00089",
+    "customer_id": "100034",
+    "to": {
+      "name": "Acme",
+      "email": "anita.rao@acmeretail.example",
+      "phone": "+91-80-5555-1100"
+    },
+    "body": "Dear Acme,\n\nWe sincerely apologize for the delay in delivering your order with Complaint ID CMP-2025-00089. We understand how important timely delivery is for your organization, and we regret the inconvenience this may have caused.\n\nWe have been in touch with our carrier partner, BlueDart, and your shipment is now scheduled to reach you by 2025-11-28. To express our commitment to your satisfaction, we have issued a goodwill credit of 2,299.50 INR to your account.\n\nThank you for your patience and understanding.",
+    "dispatch_channel": "email",
+    "tone": "empathetic",
+    "compliance": {
+      "gdpr": true,
+      "brand": true
+    },
+    "validation_status": "pass",
+    "timestamp": "2026-01-13T10:35:45.123456",
+    "agent_id": "COM-01"
+  }
+}
+```
+
+### Terminal Shows:
+```
+======================================================================
+INCOMING API REQUEST
+======================================================================
+Timestamp: 2026-01-13T10:35:45.123456
+Customer ID: 100034
+Complaint ID: CMP-2025-00089
+======================================================================
+
+[API] Processing request through agent...
+✓ Message generated by Agent
+✓ Compliance validated by Agent
+
+[API] ✓ Message generation completed successfully
+======================================================================
+```
+
+---
+
+## What Each File Does
+
+```
+┌─────────────────────────────────────────────────────┐
+│               PROJECT FILES                         │
+├─────────────────────────────────────────────────────┤
+│  flask_api.py                                       │
+│  └─ Main server (5 endpoints)                      │
+│                                                     │
+│  Postman_Collection.json                            │
+│  └─ Pre-configured requests for Postman            │
+│                                                     │
+│  API_DOCUMENTATION.md                               │
+│  └─ Complete endpoint documentation                │
+│                                                     │
+│  POSTMAN_GUIDE.md                                   │
+│  └─ Step-by-step Postman guide                    │
+│                                                     │
+│  FLASK_API_README.md                                │
+│  └─ Overview and quick start                       │
+│                                                     │
+│  CURL_COMMANDS.md                                   │
+│  └─ cURL command examples                          │
+│                                                     │
+│  test_api.bat                                       │
+│  └─ Interactive batch script for testing           │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## Quick Checklist
+
+```
+Before Testing:
+  ☑ Flask server running
+  ☑ Terminal shows "Running on http://127.0.0.1:5000"
+  ☑ Postman installed
+
+Testing Steps:
+  ☑ Import Postman_Collection.json
+  ☑ Select endpoint
+  ☑ Click Send
+  ☑ Check Postman response
+  ☑ Check terminal logs
+
+Success Indicators:
+  ☑ Postman shows "200 OK"
+  ☑ Response has valid JSON
+  ☑ Terminal shows "✓ Message generated by Agent"
+  ☑ Terminal shows "✓ Compliance validated by Agent"
+```
+
+---
+
+## Response Status Codes
+
+```
+┌──────┬──────────────┬────────────────────────┐
+│ Code │ Status       │ Meaning                │
+├──────┼──────────────┼────────────────────────┤
+│ 200  │ ✅ OK        │ Request successful     │
+│ 400  │ ❌ Bad Req   │ Missing/invalid fields │
+│ 500  │ ❌ Error     │ Server error           │
+│ 503  │ ❌ Unavail   │ Service not ready      │
+└──────┴──────────────┴────────────────────────┘
+```
+
+---
+
+## Performance Profile
+
+```
+┌─────────────────────────────────────────┐
+│       ENDPOINT PERFORMANCE              │
+├─────────────────────────────────────────┤
+│ /health                    < 100ms      │
+│ /api/v1/status             < 100ms      │
+│ /api/v1/generate-message   3-5 seconds  │
+│ /api/v1/batch-generate     N × 3-5s     │
+│ /api/v1/validate           1-2 seconds  │
+└─────────────────────────────────────────┘
+
+(Times vary based on Azure OpenAI response)
+```
+
+---
+
+## Configuration Summary
+
+```
+Server:
+  Host: 127.0.0.1 (localhost)
+  Port: 5000
+  Debug: ON (Development)
+
+Features:
+  CORS: Enabled ✓
+  Error Handling: Comprehensive ✓
+  Logging: Real-time ✓
+  Multi-agent: Active ✓
+  LLM: Azure GPT-4o ✓
+
+Endpoints:
+  1. GET  /health
+  2. GET  /api/v1/status
+  3. POST /api/v1/generate-message
+  4. POST /api/v1/batch-generate
+  5. POST /api/v1/validate
+```
+
+---
+
+## Next Actions
+
+### Right Now:
+1. ✅ Keep terminal running with Flask server
+2. ✅ Open Postman
+3. ✅ Import `Postman_Collection.json`
+4. ✅ Click "Generate Single Message"
+5. ✅ Click "Send"
+6. ✅ Watch terminal for logs!
+
+### After Testing:
+- Review API_DOCUMENTATION.md
+- Explore all 5 endpoints
+- Try batch generation
+- Try validation endpoint
+- Check terminal logs
+
+### For Integration:
+- Use CURL_COMMANDS.md for reference
+- Integrate with your frontend
+- Use Python/JavaScript clients
+- Deploy to production when ready
+
+---
+
+## Support
+
+| Need | Resource |
+|------|----------|
+| API Docs | API_DOCUMENTATION.md |
+| Postman Help | POSTMAN_GUIDE.md |
+| cURL Examples | CURL_COMMANDS.md |
+| Overview | FLASK_API_README.md |
+| Source Code | flask_api.py |
+
+---
+
+**Status:** ✅ Ready to Use
+**Server:** http://127.0.0.1:5000
+**Start Testing:** Import Postman Collection and Click Send!
+
+🎉 **You're All Set!**
